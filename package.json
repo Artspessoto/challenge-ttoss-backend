@@ -13,12 +13,14 @@
   "author": "Arthur Spessoto",
   "license": "MIT",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^22.10.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   },
   "dependencies": {
     "@prisma/client": "^6.0.1",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.7",
     "fastify": "^5.1.0",
     "prisma": "^6.0.1",
