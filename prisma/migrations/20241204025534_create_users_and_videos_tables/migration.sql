@@ -16,6 +16,7 @@ CREATE TABLE "Videos" (
     "title" TEXT NOT NULL,
     "url" TEXT NOT NULL,
     "src" TEXT NOT NULL,
+    "rating" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

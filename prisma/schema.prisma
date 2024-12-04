@@ -22,6 +22,7 @@ model Videos {
   title String
   url String
   src String
+  rating Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
