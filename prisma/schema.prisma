@@ -7,3 +7,21 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+
+model User {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  password String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Videos {
+  id String @id @default(uuid())
+  title String
+  url String
+  src String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
