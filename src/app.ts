@@ -4,7 +4,7 @@ import routes from "./routes";
 
 const app: FastifyInstance = fastify();
 
-app.register(routes)
+app.register(routes);
 app.setErrorHandler(errorHandler);
 
 export { app };

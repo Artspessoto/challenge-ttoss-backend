@@ -8,7 +8,6 @@ export const errorHandler = (
   reply: FastifyReply
 ) => {
   const isDevelopment = env.NODE_ENV === "development";
-  console.log("Erro capturado:", error);
 
   if (error instanceof AppError) {
     reply.status(error.statusCode).send({
