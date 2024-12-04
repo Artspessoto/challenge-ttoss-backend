@@ -1,4 +1,3 @@
-import fastify, { FastifyInstance } from "fastify";
 import { env } from "./validations/env";
 import { app } from "./app";
 
@@ -13,3 +12,5 @@ const start = async () => {
 };
 
 start();
+
+export default app;

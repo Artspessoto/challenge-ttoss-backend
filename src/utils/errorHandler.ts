@@ -1,40 +1,31 @@
-import { FastifyReply, FastifyRequest } from "fastify";
-import { env } from "../validations/env";
+import { FastifyRequest, FastifyReply } from "fastify";
 import { AppError } from "./AppError";
+import { env } from "../validations/env";
 
 export const errorHandler = (
   error: unknown,
-  req: FastifyRequest,
+  request: FastifyRequest,
   reply: FastifyReply
 ) => {
-  const isDevelopmentMode = env.NODE_ENV === "development";
+  const isDevelopment = env.NODE_ENV === "development";
+  console.log("Erro capturado:", error);
 
   if (error instanceof AppError) {
     reply.status(error.statusCode).send({
       status: "Error",
-      message: isDevelopmentMode
+      message: isDevelopment
         ? error.message
-        : "An error occurred in your request",
-      stack: isDevelopmentMode ? error.stack : undefined,
+        : "Ocorreu um erro na sua solicitação.",
     });
   } else {
     const errorMessage =
-      error instanceof Error ? error.message : "Unknow error";
-
-    if (!isDevelopmentMode) {
-      console.error(error);
-    }
+      error instanceof Error ? error.message : "Erro desconhecido";
 
     reply.status(500).send({
       status: "Error",
-      message: isDevelopmentMode
+      message: isDevelopment
         ? errorMessage
-        : "An internal error has occurred. Please try again later",
-      stack: isDevelopmentMode
-        ? error instanceof Error
-          ? error.stack
-          : ""
-        : undefined,
+        : "Ocorreu um erro interno. Tente novamente mais tarde",
     });
   }
 };

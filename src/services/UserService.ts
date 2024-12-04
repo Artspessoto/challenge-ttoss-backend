@@ -10,11 +10,14 @@ class UserService {
     this.userRepository = new UserRepository();
   }
 
-  public async createUser(data: User) {
-    const parsedData = userSchema.safeParse(data);
+  public async createUser(data: User): Promise<User> {
+    const { success, error } = userSchema.safeParse(data);
 
-    if (!parsedData.success) {
-      throw new AppError("Dados de usuário inválido", 400);
+    if (!success) {
+      throw new AppError(
+        error.errors.map((err) => err.message).join(", "),
+        400
+      );
     }
 
     const emailExists = await this.userRepository.findByEmail(data.email);

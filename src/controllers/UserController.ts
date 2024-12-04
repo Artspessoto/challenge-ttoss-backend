@@ -2,7 +2,6 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import UserService from "../services/UserService";
 import { userSchema } from "../validations/schemas/userSchema";
 import { AppError } from "../utils/AppError";
-import { error } from "console";
 
 class UserController {
   private userService: UserService;
