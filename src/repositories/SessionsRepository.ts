@@ -1,7 +1,7 @@
 import prisma from "../database/prismaClient";
 import { User } from "../validations/schemas/userSchema";
 
-class SessionRepository {
+class SessionsRepository {
   async findByEmail(email: string): Promise<User | null> {
     return prisma.user.findUnique({
       where: { email },
@@ -9,4 +9,4 @@ class SessionRepository {
   }
 }
 
-export default SessionRepository;
+export default SessionsRepository;
