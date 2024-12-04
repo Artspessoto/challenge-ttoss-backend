@@ -15,16 +15,26 @@ export const errorHandler = (
       message: isDevelopmentMode
         ? error.message
         : "An error occurred in your request",
+      stack: isDevelopmentMode ? error.stack : undefined,
     });
   } else {
     const errorMessage =
       error instanceof Error ? error.message : "Unknow error";
+
+    if (!isDevelopmentMode) {
+      console.error(error);
+    }
 
     reply.status(500).send({
       status: "Error",
       message: isDevelopmentMode
         ? errorMessage
         : "An internal error has occurred. Please try again later",
+      stack: isDevelopmentMode
+        ? error instanceof Error
+          ? error.stack
+          : ""
+        : undefined,
     });
   }
 };
