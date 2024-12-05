@@ -4,7 +4,7 @@ import { Video } from "../validations/schemas/videoSchema";
 
 class VideoRepository {
   async create(data: Video) {
-    const newVideo = await prisma.videos.create({ data });
+    const newVideo = prisma.videos.create({ data });
     return newVideo;
   }
 

@@ -9,7 +9,7 @@ const app: FastifyInstance = fastify();
 
 cookiePlugin(app);
 jwtPlugin(app);
-ensuredAuthenticated(app);
+app.addHook('preHandler', ensuredAuthenticated)
 
 app.register(routes);
 app.setErrorHandler(errorHandler);

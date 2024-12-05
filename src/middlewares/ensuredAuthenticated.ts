@@ -8,24 +8,20 @@ export interface AuthUser {
   exp: number;
 }
 
-export const ensuredAuthenticated = (app: FastifyInstance) => {
-  app.addHook(
-    "preHandler",
-    (req: FastifyRequest, _reply: FastifyReply, done: () => void) => {
-      const token = req.cookies.token;
+export const ensuredAuthenticated = async (
+  req: FastifyRequest,
+  _reply: FastifyReply
+) => {
+  const token = req.cookies.token;
 
-      if (!token) {
-        throw new AppError("Usuário não autenticado", 401);
-      }
+  if (!token) {
+    throw new AppError("Usuário não autenticado", 401);
+  }
 
-      try {
-        const decoded: AuthUser = app.jwt.verify(token);
-        req.user = { id: decoded.id, email: decoded.email };
-      } catch (error) {
-        throw new AppError("Token inválido!", 400);
-      }
-
-      done();
-    }
-  );
+  try {
+    const decoded: AuthUser = req.server.jwt.verify(token);
+    req.user = { id: decoded.id, email: decoded.email };
+  } catch (error) {
+    throw new AppError("Token inválido!", 400);
+  }
 };

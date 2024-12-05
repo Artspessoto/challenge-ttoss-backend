@@ -21,7 +21,7 @@ class UserController {
 
     await this.userService.createUser({ name, email, password });
 
-    return reply.status(201).send({ message: "User created 😎👍" });
+    return reply.status(201).send({ message: "Usuário criado 😎👍" });
   }
 }
 
