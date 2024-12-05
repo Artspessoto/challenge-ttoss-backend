@@ -10,6 +10,6 @@ export const setJwtCookie = (reply: FastifyReply, token: string) => {
   reply.setCookie("token", token, {
     httpOnly: true,
     secure: env.NODE_ENV === "production",
-    sameSite: true,
+    sameSite: 'none',
   });
 };
