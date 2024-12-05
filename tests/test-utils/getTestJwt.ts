@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { UpdateUser } from "../../../src/validations/schemas/userSchema";
+import { UpdateUser } from "../../src/validations/schemas/userSchema";
 
 export const getTestJwt = (user: UpdateUser, app: FastifyInstance): string => {
   const payload = {

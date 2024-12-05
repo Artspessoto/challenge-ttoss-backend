@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { app } from "../../src/app";
 import { FastifyInstance } from "fastify";
-import { getTestJwt } from "./test-utils/getTestJwt";
+import { getTestJwt } from "../test-utils/getTestJwt";
 import { isObject } from "util";
 
 const hash = (): string => {
@@ -85,7 +85,6 @@ describe("User routes", () => {
   });
 
   it("should not update an user with an empty token", async () => {
-    //need to resolve wrong message received
     const user = {
       name: "Teste",
       email: `vilasesamo-${hash()}@gmail.com`,
@@ -100,7 +99,7 @@ describe("User routes", () => {
       payload: user,
     });
 
-    const responseBody = JSON.parse(response.body)
+    const responseBody = JSON.parse(response.body);
 
     expect(response.statusCode).toEqual(401);
     expect(responseBody).toEqual({
@@ -132,7 +131,7 @@ describe("User routes", () => {
       },
     });
 
-    const responseBody = JSON.parse(response.body)
+    const responseBody = JSON.parse(response.body);
 
     expect(response.statusCode).toEqual(400);
     expect(responseBody).toEqual({
