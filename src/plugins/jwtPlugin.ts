@@ -1,4 +1,5 @@
 import { FastifyInstance } from "fastify";
+import "dotenv/config";
 import fjwt from "@fastify/jwt";
 import { AppError } from "../utils/AppError";
 
