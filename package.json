@@ -4,7 +4,7 @@
   "description": "API voltada para votação de vídeos do YouTube",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "dev": "tsx watch src/server.ts",
     "build": "npx prisma generate && tsc && next build",
     "start": "node dist/server.js",
@@ -18,9 +18,12 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^22.10.1",
+    "@types/supertest": "^6.0.2",
+    "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.1",
