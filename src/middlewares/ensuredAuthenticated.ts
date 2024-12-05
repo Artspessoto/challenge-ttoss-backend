@@ -14,7 +14,7 @@ export const ensuredAuthenticated = async (
 ) => {
   const token = req.cookies.token;
 
-  if (!token) {
+  if (!token || token == '') {
     throw new AppError("Usuário não autenticado", 401);
   }
 
