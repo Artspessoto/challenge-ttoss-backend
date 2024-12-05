@@ -84,7 +84,7 @@ describe("User routes", () => {
     expect(response.statusCode).toEqual(400);
   });
 
-  it.skip("should not update an user with an empty token", async () => {
+  it("should not update an user with an empty token", async () => {
     //need to resolve wrong message received
     const user = {
       name: "Teste",
@@ -100,10 +100,44 @@ describe("User routes", () => {
       payload: user,
     });
 
+    const responseBody = JSON.parse(response.body)
+
     expect(response.statusCode).toEqual(401);
-    expect(response.body).toEqual({
+    expect(responseBody).toEqual({
       status: "Error",
-      message: "Usuário não autenticado.",
+      message: "Usuário não autenticado",
+    });
+  });
+
+  it("should not update a user email with an existing email address", async () => {
+    const user = {
+      id: "4b48bcda-2b38-4cf5-a8d6-3ec2ac58157d",
+      name: "Arthur4",
+      email: "teste-3fczr1@gmail.com", //existing email in database,
+      old_password: "123456",
+      password: "123456",
+    };
+
+    const token = await getTestJwt(user, server);
+
+    const response = await server.inject({
+      url: "/users",
+      method: "PUT",
+      body: user,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      cookies: {
+        token: token,
+      },
+    });
+
+    const responseBody = JSON.parse(response.body)
+
+    expect(response.statusCode).toEqual(400);
+    expect(responseBody).toEqual({
+      status: "Error",
+      message: "Este e-mail já está em uso.",
     });
   });
 

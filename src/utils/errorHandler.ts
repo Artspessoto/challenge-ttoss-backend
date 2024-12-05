@@ -7,7 +7,7 @@ export const errorHandler = (
   request: FastifyRequest,
   reply: FastifyReply
 ) => {
-  const isDevelopment = env.NODE_ENV === "development";
+  const isDevelopment = env.NODE_ENV === "development" || "test";
 
   if (error instanceof AppError) {
     reply.status(error.statusCode).send({
