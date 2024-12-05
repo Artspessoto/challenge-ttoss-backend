@@ -2,6 +2,10 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { app } from "../../src/app";
 import { FastifyInstance } from "fastify";
 
+const hash = (): string => {
+  return Math.random().toString(36).substring(7);
+};
+
 let server: FastifyInstance;
 
 beforeEach(() => {
@@ -29,5 +33,22 @@ describe("User routes", () => {
     expect(user).toHaveProperty("email");
     expect(user).toHaveProperty("createdAt");
     expect(user).toHaveProperty("updatedAt");
+  });
+
+  it("should create an user", async () => {
+    const user = {
+      name: `Teste ${hash()}`,
+      email: `teste-${hash()}@gmail.com`,
+      password: "1234567",
+    };
+
+    const url = "/users";
+    const response = await server.inject({
+      url: "/users",
+      method: "POST",
+      body: user,
+    });
+
+    expect(response.statusCode).toEqual(201);
   });
 });
