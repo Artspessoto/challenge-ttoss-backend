@@ -14,6 +14,11 @@ class VideoService {
     return allVideos;
   }
 
+  public async listByRating(){
+    const videos = await this.videoRepository.listVideosOrderedByRating();
+    return videos;
+  }
+
   public async getTwoVideos() {
     const videos = await this.videoRepository.findTwoRandom();
     return videos;
@@ -29,6 +34,12 @@ class VideoService {
       );
     }
 
+    const existingVideo = await this.videoRepository.findByUrl(data.url);
+
+    if (existingVideo) {
+      throw new AppError("Já existe um vídeo com essa URL.", 400);
+    }
+
     const { title, url, src, rating } = data;
 
     const newVideo = await this.videoRepository.create({
@@ -39,6 +50,18 @@ class VideoService {
     });
 
     return newVideo;
+  }
+
+  public async updateVideoRating(url: string, newRating: number) {
+    if (newRating < 0) {
+      throw new AppError("Rating inválido!");
+    }
+
+    const updatedVideo = await this.videoRepository.updateVideoRatingByUrl(
+      url,
+      newRating
+    );
+    return updatedVideo;
   }
 }
 

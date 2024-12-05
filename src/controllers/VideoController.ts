@@ -19,9 +19,9 @@ class VideoController {
 
     const { title, url, src, rating } = data;
 
-    const teste = await this.videoService.addVideo({ title, url, src, rating });
+    await this.videoService.addVideo({ title, url, src, rating });
 
-    return reply.status(201).send({ message: "Vídeo adicionado 😎👍"})
+    return reply.status(201).send({ message: "Vídeo adicionado 😎👍" });
   }
 
   async list(req: FastifyRequest, reply: FastifyReply) {
@@ -30,10 +30,24 @@ class VideoController {
     reply.status(200).send({ videos: allVideos });
   }
 
+  async listByElo(req: FastifyRequest, reply: FastifyReply) {
+    const list = await this.videoService.listByRating();
+    reply.status(200).send({ eloRanked: list });
+  }
+
   async twoVideos(req: FastifyRequest, reply: FastifyReply) {
     const videos = await this.videoService.getTwoVideos();
 
     reply.status(200).send({ video1: videos[0], video2: videos[1] });
+  }
+
+  async update(req: FastifyRequest, reply: FastifyReply) {
+    const { url, rating } = req.query as { url: string; rating: number };
+
+    const formatRating = Number(rating);
+
+    const video = await this.videoService.updateVideoRating(url, formatRating);
+    reply.status(200).send({ updatedVideo: video });
   }
 }
 

@@ -13,6 +13,24 @@ class VideoRepository {
     return allVideos;
   }
 
+  async listVideosOrderedByRating() {
+    const videos = await prisma.videos.findMany({
+      orderBy: {
+        rating: "desc",
+      },
+    });
+
+    return videos;
+  }
+
+  async findByUrl(url: string) {
+    const existingVideo = await prisma.videos.findFirst({
+      where: { url },
+    });
+
+    return existingVideo;
+  }
+
   async findTwoRandom() {
     const videos = await prisma.videos.findMany();
 
@@ -38,6 +56,27 @@ class VideoRepository {
     const secondVideo = videos[index2];
 
     return [firstVideo, secondVideo];
+  }
+
+  async updateVideoRatingByUrl(url: string, newRating: number) {
+    const video = await prisma.videos.findFirst({
+      where: { url },
+    });
+
+    if (!video) {
+      throw new AppError("Vídeo não encontrado 😢", 404);
+    }
+
+    await prisma.videos.updateMany({
+      where: { url },
+      data: { rating: newRating },
+    });
+
+    const updatedVideo = await prisma.videos.findMany({
+      where: { url },
+    });
+
+    return updatedVideo;
   }
 }
 
