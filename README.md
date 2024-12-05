@@ -28,6 +28,12 @@ npm install
 npm run dev
 ```
 
+### 4. **Test the server with:**
+
+```
+npm run test
+```
+
 ## Technologies used
 
 - **Fastify**: A fast and low-overhead web framework for Node.js.
@@ -42,6 +48,7 @@ npm run dev
 ## Scripts
 
 - `dev`: Run the development server with `tsx` in watch mode.
+- `test`: Run the test using Vitest + Supertest.
 - `prisma:init`: Initialize Prisma configuration.
 - `prisma:generate`: Generate Prisma client.
 - `prisma:migrate`: Run Prisma database migrations.
