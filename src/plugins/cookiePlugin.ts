@@ -3,7 +3,7 @@ import { FastifyInstance, FastifyReply } from "fastify";
 import { env } from "../validations/env";
 
 export const cookiePlugin = async (app: FastifyInstance) => {
-  app.register(fCookie);
+  await app.register(fCookie);
 };
 
 export const setJwtCookie = (reply: FastifyReply, token: string) => {
