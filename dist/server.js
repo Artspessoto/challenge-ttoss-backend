@@ -12,19 +12,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = handler;
 const env_1 = require("./validations/env");
 const app_1 = require("./app");
-// if (require.main === module) {
-const start = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield app_1.app.listen({ port: env_1.env.PORT, host: "0.0.0.0" });
-        console.log("HTTP Server is running!");
-    }
-    catch (error) {
-        app_1.app.log.error(error);
-        process.exit(1);
-    }
-});
-start();
-// }
+if (require.main === module) {
+    const start = () => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield app_1.app.listen({ port: env_1.env.PORT, host: "0.0.0.0" });
+            console.log("HTTP Server is running!");
+        }
+        catch (error) {
+            app_1.app.log.error(error);
+            process.exit(1);
+        }
+    });
+    start();
+}
 function handler(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         yield app_1.app.ready();

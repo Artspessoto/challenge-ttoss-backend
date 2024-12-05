@@ -88,6 +88,11 @@ class UserService {
 
     return updateUser;
   }
+
+  public async listAll() {
+    const allUsers = this.userRepository.list();
+    return allUsers;
+  } 
 }
 
 export default UserService;

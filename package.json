@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/server.ts",
-    "build": "npx prisma generate && next build",
+    "build": "npx prisma generate && tsc && next build",
     "start": "node dist/server.js",
     "vercel-build": "npx prisma generate && npx prisma migrate deploy",
     "prisma:init": "npx prisma init",

@@ -15,6 +15,9 @@ async function usersRoutes(fastify: FastifyInstance) {
       return userController.update(req, reply);
     }
   );
+  fastify.get("/", async (req: FastifyRequest, reply: FastifyReply) => {
+    return userController.list(req, reply);
+  });
 }
 
 export default usersRoutes;

@@ -42,5 +42,11 @@ class UserController {
             return reply.status(200).send({ User: updatedUser });
         });
     }
+    list(req, reply) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const listUsers = yield this.userService.listAll();
+            return reply.status(200).send({ list: listUsers });
+        });
+    }
 }
 exports.default = UserController;

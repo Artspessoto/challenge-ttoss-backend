@@ -72,5 +72,11 @@ class UserService {
             return updateUser;
         });
     }
+    listAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const allUsers = this.userRepository.list();
+            return allUsers;
+        });
+    }
 }
 exports.default = UserService;

@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.jwtPlugin = void 0;
+require("dotenv/config");
 const jwt_1 = __importDefault(require("@fastify/jwt"));
 const AppError_1 = require("../utils/AppError");
 const jwtPlugin = (app) => __awaiter(void 0, void 0, void 0, function* () {

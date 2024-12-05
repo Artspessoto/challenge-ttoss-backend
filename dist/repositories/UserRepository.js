@@ -43,5 +43,11 @@ class UserRepository {
             return user;
         });
     }
+    list() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const users = prismaClient_1.default.user.findMany();
+            return users;
+        });
+    }
 }
 exports.default = UserRepository;

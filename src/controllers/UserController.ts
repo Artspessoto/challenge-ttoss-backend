@@ -44,6 +44,11 @@ class UserController {
 
     return reply.status(200).send({ User: updatedUser });
   }
+
+  async list(req: FastifyRequest, reply: FastifyReply) {
+    const listUsers = await this.userService.listAll();
+    return reply.status(200).send({ list: listUsers });
+  }
 }
 
 export default UserController;

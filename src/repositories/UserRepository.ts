@@ -26,6 +26,11 @@ class UserRepository {
     });
     return user;
   }
+
+  async list(){
+    const users = prisma.user.findMany();
+    return users;
+  }
 }
 
 export default UserRepository;

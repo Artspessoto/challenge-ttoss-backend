@@ -23,6 +23,9 @@ function usersRoutes(fastify) {
         fastify.put("/", { preHandler: [ensuredAuthenticated_1.ensuredAuthenticated] }, (req, reply) => {
             return userController.update(req, reply);
         });
+        fastify.get("/", (req, reply) => __awaiter(this, void 0, void 0, function* () {
+            return userController.list(req, reply);
+        }));
     });
 }
 exports.default = usersRoutes;
