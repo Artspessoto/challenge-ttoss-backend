@@ -7,9 +7,12 @@ import videoRoutes from "./videos.routes";
 async function routes(fastify: FastifyInstance) {
   fastify.register(usersRoutes, { prefix: "/users" });
   fastify.register(sessionsRoutes, { prefix: "/sessions" });
-  fastify.register(videoRoutes, { prefix: "/videos"})
+  fastify.register(videoRoutes, { prefix: "/videos" });
   fastify.get("/force-error", async () => {
     throw new AppError("Erro proposital!");
+  });
+  fastify.get("/", async () => {
+    return { message: "ttoss API" };
   });
 }
 

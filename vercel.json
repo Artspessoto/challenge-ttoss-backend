@@ -3,12 +3,12 @@
   "builds": [
     {
       "src": "src/server.ts",
-      "user": "@vercel/node"
+      "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "(.*)",
+      "source": "/(.*)",
       "dest": "src/server.ts"
     }
   ]
