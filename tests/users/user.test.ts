@@ -42,7 +42,6 @@ describe("User routes", () => {
       password: "1234567",
     };
 
-    const url = "/users";
     const response = await server.inject({
       url: "/users",
       method: "POST",
@@ -50,5 +49,36 @@ describe("User routes", () => {
     });
 
     expect(response.statusCode).toEqual(201);
+  });
+
+  it("should not create an user with an empty email", async () => {
+    const user = {
+      name: "Teste",
+      email: "",
+      password: "1234567",
+    };
+
+    const response = await server.inject({
+      url: "/users",
+      method: "POST",
+      body: user,
+    });
+    expect(response.statusCode).toEqual(400);
+  });
+
+  it("should not create an user with an empty password", async () => {
+    const user = {
+      name: "Teste",
+      email: `teste-${hash()}@gmail.com`,
+      password: "",
+    };
+
+    const response = await server.inject({
+      url: "/users",
+      method: "POST",
+      body: user,
+    });
+
+    expect(response.statusCode).toEqual(400);
   });
 });
