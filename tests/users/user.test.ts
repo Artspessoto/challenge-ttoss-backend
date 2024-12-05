@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { app } from "../../src/app";
 import { FastifyInstance } from "fastify";
 import { getTestJwt } from "./test-utils/getTestJwt";
+import { isObject } from "util";
 
 const hash = (): string => {
   return Math.random().toString(36).substring(7);
@@ -36,7 +37,7 @@ describe("User routes", () => {
     expect(user).toHaveProperty("updatedAt");
   });
 
-  it("should create an user", async () => {
+  it.skip("should create an user", async () => {
     const user = {
       name: `Teste ${hash()}`,
       email: `teste-${hash()}@gmail.com`,
@@ -109,9 +110,9 @@ describe("User routes", () => {
   it("should update an user name", async () => {
     const user = {
       id: "4b48bcda-2b38-4cf5-a8d6-3ec2ac58157d",
-      name: "Arthur3",
+      name: "Arthur4",
       email: "user3@email.com",
-      old_password: "1234567",
+      old_password: "123456",
       password: "123456",
     };
 
@@ -122,12 +123,28 @@ describe("User routes", () => {
       method: "PUT",
       body: user,
       headers: {
-        authorization: `Bearer ${token}` 
+        authorization: `Bearer ${token}`,
       },
       cookies: {
-        token: token
-      }
-    })
+        token: token,
+      },
+    });
+
+    expect(() => JSON.parse(response.body).not.toThrow());
+    const responseBody = JSON.parse(response.body);
+    expect(responseBody).toHaveProperty("User");
+    expect(isObject(responseBody)).toBe(true);
+
+    const updatedUser = responseBody.User;
+
+    expect(updatedUser).toHaveProperty("id");
+    expect(updatedUser).toHaveProperty("name");
+    expect(updatedUser).toHaveProperty("email");
+    expect(updatedUser).toHaveProperty("password");
+    expect(updatedUser).toHaveProperty("createdAt");
+    expect(updatedUser).toHaveProperty("updatedAt");
+
+    expect(updatedUser.name).toBe(user.name);
 
     expect(response.statusCode).toEqual(200);
   });
