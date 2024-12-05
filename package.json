@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.ts",
+    "start": "node dist/server.js",
     "prisma:init": "npx prisma init",
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev"
@@ -25,6 +25,7 @@
     "@fastify/cookie": "^11.0.1",
     "@fastify/jwt": "^9.0.1",
     "@prisma/client": "^6.0.1",
+    "@vercel/node": "^3.2.28",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.7",
     "fastify": "^5.1.0",
