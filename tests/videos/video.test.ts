@@ -75,6 +75,30 @@ describe("Video routes", () => {
     expect(response.statusCode).toBe(200);
   });
 
+  it("user unauthorized should not create a video", async () => {
+    const video = {
+      title: "Testezin",
+      url: "https://www.youtube.com/watch?v=KanFwS3U8qM",
+      src: "https://www.youtube.com/watch?v=KanFwS3U8qM",
+      rating: 1,
+    };
+
+    const response = await server.inject({
+      method: "POST",
+      url: endpoint,
+      body: video,
+    });
+
+    const responseBody = JSON.parse(response.body);
+
+    expect(responseBody).toEqual({
+      status: "Error",
+      message: "Usuário não autenticado",
+    });
+
+    expect(response.statusCode).toBe(401);
+  });
+
   it("Authenticated user should not create a video with an already existing url", async () => {
     const video = {
       title: "Teste do garibaldo",
@@ -105,5 +129,39 @@ describe("Video routes", () => {
       status: "Error",
       message: "Já existe um vídeo com essa URL.",
     });
+
+    expect(response.statusCode).toBe(400);
+  });
+
+  it.skip("Authenticated user should create a video with successful", async () => {
+    const video = {
+      title: "never meant to belong",
+      url: "https://www.youtube.com/watch?v=zO_532nbu0c",
+      src: "https://www.youtube.com/watch?v=zO_532nbu0c",
+      rating: 10,
+    };
+
+    const user = { id: mockedUser.id, email: mockedUser.email };
+
+    const token = getTestJwt(user, server);
+
+    const response = await server.inject({
+      method: "POST",
+      url: endpoint,
+      body: video,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      cookies: {
+        token: token,
+      },
+    });
+
+    const responseBody = JSON.parse(response.body);
+
+    expect(responseBody).toEqual({
+      message: "Vídeo adicionado 😎👍",
+    });
+    expect(response.statusCode).toBe(201);
   });
 });
