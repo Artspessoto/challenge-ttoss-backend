@@ -4,10 +4,6 @@ import { FastifyInstance } from "fastify";
 import { getTestJwt } from "../test-utils/getTestJwt";
 import { isObject } from "util";
 
-const hash = (): string => {
-  return Math.random().toString(36).substring(7);
-};
-
 const endpoint = "/videos";
 
 let server: FastifyInstance;
@@ -36,6 +32,26 @@ describe("Video routes", () => {
     expect(videos).toHaveProperty("rating");
     expect(videos).toHaveProperty("createdAt");
     expect(videos).toHaveProperty("updatedAt");
+
+    expect(response.statusCode).toBe(200);
+  });
+
+  it("should return a list of videos by elo rating", async () => {
+    const response = await server.inject({
+      method: "GET",
+      url: `${endpoint}/elo`,
+    });
+
+    const { eloRanked } = JSON.parse(response.body);
+
+    expect(Array.isArray(eloRanked)).toBe(true);
+    expect(eloRanked.length).toBeGreaterThan(0);
+
+    for (let i = 1; i < eloRanked.length; i++) {
+      expect(eloRanked[i - 1].rating).toBeGreaterThanOrEqual(
+        eloRanked[i].rating
+      );
+    }
 
     expect(response.statusCode).toBe(200);
   });
