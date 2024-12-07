@@ -3,8 +3,14 @@ import { errorHandler } from "./utils/errorHandler";
 import routes from "./routes";
 import { cookiePlugin } from "./plugins/cookiePlugin";
 import { jwtPlugin } from "./plugins/jwtPlugin";
+import cors from "@fastify/cors";
 
 const app: FastifyInstance = fastify();
+
+app.register(cors, {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+});
 
 cookiePlugin(app);
 jwtPlugin(app);

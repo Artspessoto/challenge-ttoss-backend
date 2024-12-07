@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.1",
+    "@fastify/cors": "^10.0.1",
     "@fastify/jwt": "^9.0.1",
     "@prisma/client": "^6.0.1",
     "@vercel/node": "^3.2.28",
