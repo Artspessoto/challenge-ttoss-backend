@@ -2,7 +2,7 @@
 
 ## Description
 
-API for voting on YouTube videos.
+API for voting on YouTube videos using Fastify.
 
 ## How to run the project
 
@@ -28,7 +28,7 @@ npm install
 npm run dev
 ```
 
-### 4. **Test the server with:**
+### 4. **Test with:**
 
 ```
 npm run test
